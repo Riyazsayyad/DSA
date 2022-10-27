@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class RotateImage {
     // O(n^2), must come up with something optimal
     public void rotateImage(int[][] matrix) {
+
+        // 0 ms solution
         int n = matrix.length-1;
         int mS = matrix.length;
         int [][] res = new int[n+1][n+1];
@@ -16,9 +18,7 @@ public class RotateImage {
             }
         }
         for (int i = 0; i < mS; ++i) {
-            for (int j = 0; j < mS; ++j) {
-                matrix[i][j] = res[i][j];
-            }
+            System.arraycopy(res[i], 0, matrix[i], 0, mS);
         }
         return;
 
