@@ -1,2 +1,2 @@
 
-## :wave: Hi, If you are from Crio you can find solutions in src --> Crio --> DSA..
+## :wave: H If you are from Crio you can find solutions in src --> Crio --> DSA..
