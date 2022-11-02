@@ -4,25 +4,19 @@ import java.util.*;
 
 public class FirstMissingPositive {
     public int firstMissingPositive(int[] nums) {
-        Arrays.sort(nums);
-        System.out.println(Arrays.toString(nums));
-        int a=0;
-        int b=0;
-        if(nums[0]>2)
-            return 1;
-        for(int i=0;i< nums.length;i++){
-            if ((i+1)<nums.length) {
-                if(nums[i]>=0) {
-                    a = nums[i]+1;
-                    b = nums[i + 1];
-                    System.out.println(a+" "+b);
-                    if(a==b) continue;
-                    else return (a);
-                }
+        int n = nums.length;
+        int [] sieve = new int[n+1];
+        for(int i=0;i<n;i++){
+            if(nums[i]>0 && nums[i]<n){
+                sieve[nums[i]]=1;
             }
         }
-
-        return b+1;
+        for(int j=1;j<sieve.length;j++){
+            if(sieve[j]==0){
+                return j;
+            }
+        }
+        return 1;
     }
 
     public static void main(String[] args) {
