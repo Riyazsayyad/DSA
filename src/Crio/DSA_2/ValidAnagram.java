@@ -6,6 +6,9 @@ import java.util.*;
 
 public class ValidAnagram {
     public boolean validAnagram(String s, String t) {
+
+
+
         int[] arr = new int[256];
         for(char a: s.toCharArray())    arr[(int) a]++;
         for(char b: t.toCharArray())    arr[(int) b]++;
@@ -14,6 +17,8 @@ public class ValidAnagram {
             if(arr[i]==1) return false;
         }
         return true;
+
+
     }
 
     public static void main(String[] args) throws IOException {

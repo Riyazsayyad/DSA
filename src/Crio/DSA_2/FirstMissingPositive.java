@@ -7,7 +7,7 @@ public class FirstMissingPositive {
         int n = nums.length;
         int [] sieve = new int[n+1];
         for(int i=0;i<n;i++){
-            if(nums[i]>0 && nums[i]<n){
+            if(nums[i]>0 && nums[i]<=n){
                 sieve[nums[i]]=1;
             }
         }
@@ -16,7 +16,7 @@ public class FirstMissingPositive {
                 return j;
             }
         }
-        return 1;
+        return n+1;
     }
 
     public static void main(String[] args) {
