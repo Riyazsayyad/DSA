@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ValidAnagram {
     public boolean validAnagram(String s, String t) {
-        // this solution 99.19% faster than any other submission in leetcode 
+        // this solution 99.19% faster than any other submission in leetcode
         int[] arr1 = new int[256];
         int[] arr2 = new int[256];
         for(char a: s.toCharArray())    arr1[(int) a]++;
