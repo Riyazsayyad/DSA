@@ -22,8 +22,21 @@ public class MaxSumTriplet {
     }
 
     static long maxSumTriplet(int n, long arr[]) {
-        Arrays.sort(arr);
-        long sum = arr[n-1]+arr[n-2]+arr[n-3];
-        return sum;
+        long res = 0;
+        for(int i=1;i<n-1;i++){
+            long maxL =0;
+            long maxR =0;
+            //max check for left
+            for(int l=0;l<i;l++){
+                if(arr[i]>arr[l])   maxL = Math.max(maxL,arr[l]);
+            }
+            //max check for right
+            for(int r=i+1;r<n;r++){
+                if(arr[r]>arr[i])   maxR = Math.max(maxR,arr[r]);
+            }
+            if(maxL>0 && maxR>0)    res = Math.max((maxL+maxR+arr[i]),res);
+
+        }
+        return res;
     }
 }
