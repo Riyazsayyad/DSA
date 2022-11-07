@@ -10,6 +10,7 @@ public class Rough{
         int [] arr ={-1,0,1,2,-1,-4};
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
+        System.out.println(1^1);
 
 
 
