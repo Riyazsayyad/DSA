@@ -2,6 +2,17 @@ package Crio.DSA_2;
 import java.util.*;
 public class MeetingRooms {
     public int findNumRooms(int[][] intervals) {
+        // Using Priority Queue 
+        PriorityQueue<Integer> pQ = new PriorityQueue<>();
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        for(int i=0;i<intervals.length;i++){
+            if (!pQ.isEmpty()) {
+                if (pQ.peek() <= intervals[i][0])   pQ.poll();
+            }
+            pQ.add(intervals[i][1]);
+        }return pQ.size();
+
+        /*
         ArrayList<Integer> A = new ArrayList<>();
         ArrayList<Integer> B = new ArrayList<>();
         for(int i=0;i<intervals.length;i++){
@@ -24,6 +35,8 @@ public class MeetingRooms {
             res =Math.max(cs,res);
         }
     return res;
+
+         */
     }
 
     public static void main(String[] args)

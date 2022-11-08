@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ContigiousSequence {
     public static  long contigiousSequence(int arr[] , int n) {
-
+        // Kadanes algorithm
         long cs=0,ms=Integer.MIN_VALUE;
         for(int i=0;i<arr.length;i++){
             cs+=arr[i];
