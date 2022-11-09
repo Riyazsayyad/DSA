@@ -2,7 +2,7 @@ package Crio.DSA_2;
 import java.util.*;
 public class MeetingRooms {
     public int findNumRooms(int[][] intervals) {
-        // Using Priority Queue 
+        // Using Priority Queue
         PriorityQueue<Integer> pQ = new PriorityQueue<>();
         Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
         for(int i=0;i<intervals.length;i++){

@@ -13,6 +13,16 @@ public class Rough{
         System.out.println(1^1);
 
 
+        ArrayList<int[]> store = new ArrayList<>();
+        int [] a = new int[0];
+        a[0]=1;
+        store.isEmpty();
+        store.add(a);
+        Iterator<int[]> iter = store.iterator();
+        System.out.println(store.get(0)[1]);
+
+
+
 
     }
 }
