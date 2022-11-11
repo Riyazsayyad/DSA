@@ -11,8 +11,10 @@ public class Rough{
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
         System.out.println(1^1);
-
-
+        Stack<Character> stack = new Stack<Character>();
+        stack.peek();
+        Map<Character,Integer> map = new HashMap<>();
+        map.keySet();
         ArrayList<int[]> store = new ArrayList<>();
         int [] a = new int[0];
         a[0]=1;
@@ -20,6 +22,7 @@ public class Rough{
         store.add(a);
         Iterator<int[]> iter = store.iterator();
         System.out.println(store.get(0)[1]);
+        String s = "ssdad";
 
 
 
