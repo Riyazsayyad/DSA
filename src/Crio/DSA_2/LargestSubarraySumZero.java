@@ -24,13 +24,13 @@ public class LargestSubarraySumZero {
         long sum=0;
         int x =0,y=0,maxLen=0;
         int[] index = new int[2];
-        for(int i=0;i<arr.length;i++) {
+        for(int i=0;i<n;i++) {
             sum += arr[i];  // to calculate prefix sum
             if (map.containsKey(sum)) {
-                x = map.get(sum);   y = i; //to get prev occurance of the sum 'x' and current index 'y'
+                x = map.get(sum);   y = i; //to get prev occurrence of the sum 'x' and current index 'y'
                 maxLen = Math.max(y - x, maxLen);   //to store maxLen for getting the longest subarray
                 if ((y - x) >= maxLen){  index[0] =x+1;  index[1] =y;   } // if array found having larger length than previous on store index
-                } else map.put(sum, i); //if not present add summ
+                } else map.put(sum, i); //if not present add sum
             }
             if(index[1]==0) ans.add(-1);
             else    for(int j=index[0];j<=index[1];j++) ans.add(arr[j]); //to put largest subarray elements into arraylist

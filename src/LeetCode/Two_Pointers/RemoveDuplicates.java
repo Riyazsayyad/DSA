@@ -1,9 +1,11 @@
 package LeetCode.Two_Pointers;
 
+import java.util.Arrays;
+
 public class RemoveDuplicates {
 
     public static void main(String[] args) {
-        int[] in =  {1,2,3};
+        int[] in = {1,2,3};
         /*
         {1,1,1}
         {1,1,2}
@@ -15,8 +17,19 @@ public class RemoveDuplicates {
         int x = removeDuplicates( in );
         System.out.println(x);
     }
-
+    // jaise hi duplicate dikha while shuru khtm hote hi count pr element
+    // {0,0,1,1,1,2,2,3,3,4}
     public static int removeDuplicates(int[] nums) {
+        int count =0;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i-1]==nums[i]){
+                while (nums[i-1]==nums[i] && i<nums.length-1) { i++;}
+            }
+            nums[++count]=nums[i];
+        }
+        System.out.println(Arrays.toString(nums));
+        return count;
+        /*
         int a = 0 ;
         int b = 1 ;
         int n = nums.length ;
@@ -53,7 +66,7 @@ public class RemoveDuplicates {
             nums[j]=ans[j];
         //System.out.println(Arrays.toString(nums));
         return ++i;
-
+*/
     }
 
 
