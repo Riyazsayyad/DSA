@@ -59,7 +59,7 @@ class MarksSort {
             if (sum1 > sum2 ) return -1;
             else if(sum1 < sum2) return 1;
             else if(sum1 == sum2){
-                if(!a.name.equals(b.name))    return (a.name).compareTo(b.name); // Comparing entire string 
+                if(!a.name.equals(b.name))    return (a.name).compareTo(b.name); // Comparing entire string
                 else if (a.name.equals(b.name)) return Integer.compare(a.id, b.id);
             }
             return 0;
