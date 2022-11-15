@@ -15,6 +15,8 @@ public class WiggleSort {
     }
 
     static List<Integer> wiggleSort(int n, List<Integer>nums){
+
+        // Works fine for crio
         Collections.sort(nums);
         ArrayList<Integer> ans = new ArrayList<>();
         int i = 0,j = nums.size()/2,k=0;
