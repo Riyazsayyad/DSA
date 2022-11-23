@@ -8,7 +8,7 @@ public class SearchInRotatedSortedArray {
         if(nums[start]<nums[end]) return 0;
         while (start<=end){
             int mid = (start+end)/2;
-            int prev = (mid+n-1)%n, next = (mid+1)%n; //(mid+n-1)%n
+            int prev = (mid+n-1)%n, next = (mid+1)%n;
             if(nums[mid]<=nums[next] && nums[mid]<=nums[prev]){    return mid;}
 
             if(nums[mid] <= nums[end]){ end= mid-1;}
