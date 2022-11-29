@@ -19,14 +19,13 @@ public class NthRoot {
         double low = 1;
         double high = x;
         double mid = (low+high)/2;
-        while (Math.abs((Math.pow(mid,n))-x) >= 10e-6){
+        while (Math.abs(high-low) >= 10e-6){ //(Math.pow(mid,n))-x
             if(Math.pow(mid,n) > x) high=  mid;
             else if(Math.pow(mid,n) == x) return (int)mid;
             else low=  mid;
             mid = (low+high)/2;
         }
-        double check = mid * 1e3;
-        if((int)check%10==9) {   return (int) Math.round(mid);}
-        return (int)Math.floor(mid);
+        low+=10e-6;
+        return (int)Math.floor(low);
     }
 }
