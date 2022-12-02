@@ -10,7 +10,7 @@ public class Rough{
         int [] arr ={-1,0,1,2,-1,-4};
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
-        System.out.println(1^1);
+        System.out.println(0);
         Stack<Character> stack = new Stack<Character>();
         stack.peek();
         Map<Character,Integer> map = new HashMap<>();
@@ -23,8 +23,11 @@ public class Rough{
         Iterator<int[]> iter = store.iterator();
         System.out.println(store.get(0)[1]);
         String s = "ssdad";
-
-
+        String word1= "ssdad",  word2= "ssdad";
+        char[] word1Arr = (word1.toCharArray());
+        char[] word2Arr = (word2.toCharArray());
+        Arrays.sort(word1Arr);
+        Arrays.sort(word2Arr);
 
 
     }
