@@ -1,4 +1,4 @@
-package LeetCode.Contests;
+package LeetCode;
 import java.util.*;
 public class MedianFinder {
     public ArrayList<Integer> arr = new ArrayList<Integer>();

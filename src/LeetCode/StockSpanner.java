@@ -1,4 +1,4 @@
-package LeetCode.Contests;
+package LeetCode;
 
 
 import java.util.*;

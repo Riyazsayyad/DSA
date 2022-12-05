@@ -1,4 +1,4 @@
-package LeetCode.Sorting;
+package LeetCode;
 
 import java.util.*;
 public class WiggleSort {

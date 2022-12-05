@@ -1,4 +1,4 @@
-package LeetCode.Arrays;
+package LeetCode;
 
 public class RemoveStones {
     public static int removeStones(int[][] stones) {

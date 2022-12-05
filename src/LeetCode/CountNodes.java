@@ -1,5 +1,4 @@
-package LeetCode.Tree;
-import LeetCode.Tree.TreeNode;
+package LeetCode;
 import java.util.*;
 
 public class CountNodes {

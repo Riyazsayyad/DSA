@@ -1,4 +1,4 @@
-package LeetCode.Arrays;
+package LeetCode;
 
 public class BestTimeToBuyAndSellStocks {
     // Implement your solution Here

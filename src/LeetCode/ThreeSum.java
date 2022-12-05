@@ -1,4 +1,4 @@
-package LeetCode.Two_Pointers;
+package LeetCode;
 import java.util.*;
 
 public class ThreeSum {

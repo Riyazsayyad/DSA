@@ -1,4 +1,4 @@
-package LeetCode.Search;
+package LeetCode;
 
 public class FindMin {
     public int findMin(int[] nums) {
