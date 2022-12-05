@@ -1,4 +1,4 @@
-package CoursePractice.Recusrion;
+package LeetCode;
 
 public class PowerofNo {
     public static void main(String [] args){
