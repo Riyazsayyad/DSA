@@ -12,15 +12,21 @@ class RemoveAdjacentDuplicates{
     }
 
     static String removeAdjacentDuplicates(String s){
-        Map<Character,Integer> map = new LinkedHashMap<>();
-        for(char c : s.toCharArray()){
-            map.put(c,map.getOrDefault(c,0)+1);
-            if(map.get(c)==2) map.remove(c);
+        Deque<Character> q = new LinkedList<>();
+        boolean flag = true;
+        for(char a: s.toCharArray()){
+            if(q.isEmpty()) q.offer(a);
+            else{
+                if(q.getLast()==a){
+                    q.pollLast();
+                    flag=false;
+                }
+                else q.offer(a);
+            }
         }
         StringBuilder ans = new StringBuilder();
-        for(Map.Entry<Character,Integer> entry : map.entrySet()){
-            ans.append(entry.getKey());
-        }
-        return ans.toString();
+        for(char x: q) ans.append(x);
+        if(flag) return ans.toString();
+        else return removeAdjacentDuplicates(ans.toString());
     }
 }

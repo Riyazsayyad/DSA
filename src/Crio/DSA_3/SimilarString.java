@@ -21,16 +21,18 @@ class SimilarString {
     static String similarString(int n, int m, String s, String t, int k) {
         HashMap<Character,Integer> word1 = new HashMap<>();
         HashMap<Character,Integer> word2 = new HashMap<>();
+
         for(char c1 : s.toCharArray())  word1.put(c1,word1.getOrDefault(c1,0)+1);
         for(char c2 : t.toCharArray())  word2.put(c2,word2.getOrDefault(c2,0)+1);
-        if(word1.size()!=word2.size()) return "No";
-        else{
-            ArrayList<Map.Entry<Character,Integer>> word1lst = new ArrayList<>(word1.entrySet());
-            for(Map.Entry<Character, Integer> ele : word1lst){
-                char word = ele.getKey();
-                if(word2.getOrDefault(word,0)==0) return "No";
-                if(!(Math.abs(word2.get(word) - ele.getValue()) <= k))  return "No";
-            }
+
+        ArrayList<Map.Entry<Character,Integer>> word1List = new ArrayList<>(word1.entrySet());
+        ArrayList<Map.Entry<Character,Integer>> word2List = new ArrayList<>(word2.entrySet());
+
+        for(Map.Entry<Character,Integer> w1 : word1List){
+            if(!(Math.abs(w1.getValue()-word2.getOrDefault(w1.getKey(),0)) <=k)) return "No";
+        }
+        for(Map.Entry<Character,Integer> w2 : word2List){
+            if(!(Math.abs(w2.getValue()-word1.getOrDefault(w2.getKey(),0)) <=k)) return "No";
         }
         return "Yes";
     }
