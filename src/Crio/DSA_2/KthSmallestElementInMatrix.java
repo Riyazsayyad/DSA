@@ -17,7 +17,11 @@ public class KthSmallestElementInMatrix {
         System.out.print(ans);
     }
 
-
+    static int upperBound(ArrayList<Integer> arr, int mid){
+        int index = Collections.binarySearch(arr,mid);
+        if(index < 0) index = -index-1;
+        return index;
+    }
 
     static int kthSmallestElementInMatrix(List<ArrayList<Integer>>Matrix, int k){
         int n = Matrix.size();
@@ -28,14 +32,14 @@ public class KthSmallestElementInMatrix {
             int mid =(low+high)/2;
             int count =0;
 
-                for (int i = 0; i < n; i++) {
-                //count+=upperBound(Matrix.get(i),0,n,mid);
+            for (ArrayList<Integer> matrix : Matrix) {
+                count += upperBound(matrix,mid);
             }
             if(count<k) low=mid+1;
-            else high=mid+1;
+            else high=mid-1;
 
         }
-
-        return low;
+        return --low;
     }
 }
+//    upperBound(matrix,mid)

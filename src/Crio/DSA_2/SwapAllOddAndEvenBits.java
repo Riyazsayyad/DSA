@@ -6,7 +6,11 @@ import java.util.*;
 public class SwapAllOddAndEvenBits {
     // Complete the function below
     public long swapBits(long n) {
-        return n&(n<<1);
+        long evenBits = n & 0xAAAAAAAA;
+        long oddBits = n & 0x55555555;
+        evenBits >>= 1;
+        oddBits <<= 1;
+        return evenBits | oddBits;
     }
 
     public static void main(String[] args) {
