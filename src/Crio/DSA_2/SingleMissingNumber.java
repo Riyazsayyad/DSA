@@ -16,6 +16,14 @@ class SingleMissingNumber{
     }
 
     static int singleMissingNumber(int[] nums, int n){
+        int xor =0;
+        Arrays.sort(nums);
+        for (int x : nums){
+            if((xor ^ x) != 0) return xor;
+            xor++;
+        }
+        return xor;
+        /*
         Arrays.sort(nums);
         var cnt = 0;
         for (int i = nums[0]; i <= nums[n-1]; i++) {
@@ -23,5 +31,6 @@ class SingleMissingNumber{
         }
         if (Arrays.binarySearch(nums,n) < -1) return n;
         return 0;
+        */
     }
 }
