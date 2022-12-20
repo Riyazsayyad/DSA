@@ -1,10 +1,10 @@
 package Crio.DSA_3;
 
 public class MoveMiddleToHead {
-    public ListNode moveMiddleToHead(ListNode head) {
+	public ListNode moveMiddleToHead(ListNode head) {
         //2 3 4 5 6 7
         //5 2 3 4 6 7
-        if(head.next == null || head == null)    return head;
+        if(head == null || head.next == null)    return head;
         ListNode fast = head, slow = head, prev = slow;
         while (fast!=null && fast.next != null){
             prev = slow;
@@ -14,5 +14,5 @@ public class MoveMiddleToHead {
         prev.next = slow.next;
         slow.next = head;
         return slow;
-    }
+	}
 }
