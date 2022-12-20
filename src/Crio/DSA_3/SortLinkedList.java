@@ -2,44 +2,45 @@ package Crio.DSA_3;
 
 public class SortLinkedList {
     public ListNode sortList(ListNode head) {
-        mergeSort(head);
-        return head;
+        if(head == null || head.next == null) return head;
+
+        ListNode mid = getMid(head);
+        ListNode midNext = mid.next;
+
+        mid.next = null;
+
+        ListNode left = sortList(head);
+        ListNode right = sortList(midNext);
+
+        return sortedMerge(left,right);
     }
 
-    public void mergeSort(ListNode head) {
-        ListNode tHead = head;
-        if(tHead == null || tHead.next == null) return;
-        ListNode a = null, b =null;
-        splitLL(tHead,a,b);
-        mergeSort(a);
-        mergeSort(b);
-        
-        head = sortedMerge(a,b);
+    private ListNode getMid(ListNode head) {
+        if(head == null) return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
     }
 
-    public ListNode sortedMerge(ListNode a, ListNode b) {
+    private ListNode sortedMerge(ListNode left, ListNode right) {
         ListNode res = null;
-        if(a == null) return b;
-        if(b == null) return a;
+        if(left == null)    return right;
+        if(right == null)    return left;
 
-        if(a.val <= b.val){
-            res = a;
-            a.next = sortedMerge(a.next,b);
+        if(left.val <= right.val){
+            res = left;
+            res.next = sortedMerge(left.next,right);
         }else {
-            res = b;
-            b.next = sortedMerge(a,b.next);
+            res = right;
+            res.next = sortedMerge(left,right.next);
         }
         return res;
     }
 
-    public void splitLL(ListNode node,ListNode a, ListNode b){
-        ListNode slow =node, fast =node;
-        while (fast != null && fast.next != null){
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        a = node;
-        b = slow.next;
-        slow.next = null;
-    }
+
+
 }

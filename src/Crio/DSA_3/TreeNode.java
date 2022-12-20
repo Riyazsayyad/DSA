@@ -1,13 +1,14 @@
 package Crio.DSA_3;
 
-public class TreeNode {
-    public long val;
-    public TreeNode left;
-    public TreeNode right;
-
-    public TreeNode (long x) {
-        val = x;
-        left = null;
-        right = null;
-    }
-}
+  public class TreeNode {
+      long val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode() {}
+      TreeNode(long val) { this.val = val; }
+      TreeNode(long val, TreeNode left, TreeNode right) {
+          this.val = val;
+          this.left = left;
+          this.right = right;
+     }
+  }
