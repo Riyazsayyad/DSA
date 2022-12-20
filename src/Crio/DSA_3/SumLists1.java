@@ -1,49 +1,37 @@
 package Crio.DSA_3;
 import java.util.*;
 public class SumLists1 {
-    public static ListNode revLL(ListNode node){
-        ListNode head = node, prev = null, nxt = head;
-        while (head != null){
-            nxt = head.next;
-            head.next = prev;
-            prev = head;
-            head = nxt;
-        }
-        return prev;
-    }
-    public static ListNode sumLists1( ListNode head1 , ListNode head2) {
-        // Reversing LL
-        ListNode nHead1 =  revLL(head1);
-        ListNode nHead2 =  revLL(head2);
-        ListNode ans = null;
-        int val1 =0, val2 =0, sum =0, carry =0, total =0;
-        while (nHead1 != null || nHead2 != null){
+  public static ListNode sumLists1( ListNode head1 , ListNode head2) {
+        ListNode ans = new ListNode(-1);
+        ListNode ansH = ans;
+        int val1 =0, val2 =0, sum =0, carry =0, total =0, dec =0;
+        while (head1 != null || head2 != null){
 
-            if(nHead1 == null) val1 =0;
-            else val1 = nHead1.val;
-            if(nHead2 == null) val2 =0;
-            else val2 = nHead2.val;
-            // Traditional Addition Method
+            if(head1 == null) val1 =0;
+            else val1 = head1.val;
+            if(head2 == null) val2 =0;
+            else val2 = head2.val;
+
             total = val1 + val2 + carry;
-            sum = total % 10;
+            dec = total % 10;
             carry = total / 10;
 
-            ListNode node = new ListNode(sum % 10);
+            ListNode node = new ListNode(dec % 10);
 
-            node.next = ans;
+
+            ans.next = node;
             ans = node;
 
-            if (nHead1 != null)nHead1 = nHead1.next;
-            if (nHead2 != null)nHead2 = nHead2.next;
+            if (head1 != null)head1 = head1.next;
+            if (head2 != null)head2 = head2.next;
         }
-        // if carry exists corner case (999 + 1) : 1 carry left in the end
         if(carry != 0){
             ListNode node = new ListNode(carry);
-            node.next = ans;
+            ans.next = node;
             ans = node;
         }
-        return ans;
-    }
+        return ansH.next;
+  }
 }
 
 

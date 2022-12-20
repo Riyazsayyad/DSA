@@ -1,7 +1,7 @@
 package Crio.DSA_3;
 
 public class DetectAndRemoveCycle {
-    public boolean detectAndRemoveCycle(ListNode head){
+  public boolean detectAndRemoveCycle(ListNode head){
         ListNode slow = head, fast = head;
         while (fast != null && fast.next != null){
             fast = fast.next.next;
@@ -13,23 +13,25 @@ public class DetectAndRemoveCycle {
 
     private boolean removeCycle(ListNode head, ListNode fast, ListNode slow) {
         int count =1;
-        do {
+        while (true){
             slow = slow.next;
             count++;
-        } while (fast != slow.next);
-
-        ListNode tHead = head;
-        while (count > 0){
-            --count;
-            tHead = tHead.next;
+            if(fast == slow)    break; 
         }
-
-        while (tHead.next != head.next){
-            head = head.next;
-            tHead = tHead.next;
+        //System.out.println(count);
+        ListNode temp = head;
+        while (temp != slow) {
+            count++;
+            temp = temp.next;
         }
+        //System.out.println(count);
+        temp = head;
+        while (count >= 0){
+            temp = temp.next;
+            count--;
+        }
+        temp.next =null;
 
-        tHead.next = null;
         return true;
     }
 }
