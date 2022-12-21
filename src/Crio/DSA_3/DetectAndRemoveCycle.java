@@ -11,6 +11,7 @@ public class DetectAndRemoveCycle {
         return false;
     }
     // 1 > 2 > 3 > 4L > 6 > 7L
+    // L is for loop point
     // here slow and fast meet at node with val 4 ( loop between 4 - 7)
     private boolean removeCycle(ListNode head, ListNode fast, ListNode slow) {
         int count = 1;
@@ -40,7 +41,6 @@ public class DetectAndRemoveCycle {
             head = head.next;
             tHead = tHead.next;
         }
-
 
         tHead.next = null;
         return true;
