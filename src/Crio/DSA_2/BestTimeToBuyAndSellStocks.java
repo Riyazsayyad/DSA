@@ -8,10 +8,10 @@ public class BestTimeToBuyAndSellStocks {
         int sum=0;
         int n =prices.length;
         while(i!=n){
-            if(prices[i]>prices[i-1])
-                sum+=prices[i]-prices[i-1];
+            if(prices[i]>prices[i-1]) sum+=prices[i]-prices[i-1];
             i++;
-        }return sum;
+        }
+        return sum;
 
         /*int maxProfit =0;
         for (int i=1;i<prices.length;i++){
