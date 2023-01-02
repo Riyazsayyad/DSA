@@ -19,6 +19,7 @@ public class ListIntersectionPoint {
                 l1 = l1.next;
                 ++len1;
         }
+
         while (l2 != null){
                 l2 = l2.next;
                 ++len2;
