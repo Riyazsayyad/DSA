@@ -7,6 +7,8 @@ public class Test {
         System.out.println(res);
         Map<Character,Character> map = new HashMap<>();
         StringBuilder s = new StringBuilder();
+        ListNode a = null ;
+        (new ListNode(-1)).next = a;
 
     }
     public int testKarlo(int base,int exponent){
