@@ -17,4 +17,21 @@ public class Test {
                 return base;
             return base * testKarlo(base,exponent-1) ;
     }
+
+
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> Q = new PriorityQueue<>(Collections.reverseOrder());
+        int i = 0;
+        for(int n : nums){
+            if(i < k)   Q.offer(n);
+            else{
+                if(Q.peek() < n){
+                    Q.poll();
+                    Q.offer(n);
+                }
+            }
+            i++;
+        }
+        return 0;
+    }
 }

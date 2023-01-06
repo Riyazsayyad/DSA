@@ -1,4 +1,4 @@
-package Crio.DSA_4;
+package Crio.DSA_4.Heap;
 import java.util.*;
 
 public class MaxKProfit {
@@ -18,6 +18,14 @@ public class MaxKProfit {
     }
 
     static long maxKProfit(int N, int B, int[] a) {
-        return 0L;
+        PriorityQueue<Integer> Q = new PriorityQueue<>((x,y) -> y-x); //Max Heap
+        for(int E : a) Q.offer(E);
+        long cost = 0;
+        while (!Q.isEmpty() && B-- != 0){
+            if(Q.peek() == 0) break;
+            cost += Q.peek();
+            Q.offer(Q.poll()-1);
+        }
+        return cost;
     }
 }
