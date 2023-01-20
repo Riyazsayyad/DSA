@@ -4,37 +4,43 @@ import java.util.*;
 public class RobotInAGrid {
 
     // Implement your Solution Here
+    boolean visited[][];
     Vector<String> robotInAGrid(int grid[][] , int n , int m) {
         Vector<String> result = new Vector<>();
-        getPath(grid,0,0,n,m,result);
-        return result;
-    }
-
-    private Vector<String>  getPath(int[][] grid, int row, int col,int n,int m,Vector<String> result) {
-
-        if(row == n-1 && col == m-1){
-            result.add((row+1)+" "+(col+1));
+        visited = new boolean[n][m];
+        if(getPath(grid,0,0,n,m,result) && grid[n-1][m-1] != 1){
+            return correctedSeq(result,n,m);
+        }
+        else{
+            result.clear();
+            result.add("Not Possible");
             return result;
         }
 
-        if(isValid(grid,row,col,n,m)){
-            result.add((row+1)+" "+(col+1));
-            if(row+1 < n) return getPath(grid,row+1,col,n,m,result);
-            if(col+1 < m) return getPath(grid,row,col+1,n,m,result);
-        }
 
-        return result;
     }
 
-    private boolean isValid(int[][] grid, int row, int col,int n,int m) {
-        // check right
-        if(col + 1 < m && grid[row][col+1] != 1) return true;
+    private Vector<String> correctedSeq(Vector<String> result,int n,int m) {
+        Vector<String> ans = new Vector<>();
+        for (int i = result.size()-1; i > -1; i--) {
+            ans.add(result.get(i));
+        }
+        ans.add(n+" "+m);
+        return ans;
+    }
 
-        //check down
-        if(row + 1< n && grid[row+1][col] != 1) return true;
+    private boolean  getPath(int[][] grid, int row, int col,int n,int m,Vector<String> result) {
+        if(row == n-1 && col == m-1 ) return true;
+        if (row < 0 || row >= n || col < 0 || col >= m || grid[row][col] == 1 || visited[row][col]) return false;
+        visited[row][col] = true;
 
+        if (getPath(grid, row + 1, col, n, m, result) || getPath(grid, row, col + 1, n, m, result)) {
+            result.add((row + 1) + " " + (col + 1));
+            return true;
+        }
         return false;
     }
+
 
 
     public static void main(String[] args) {
