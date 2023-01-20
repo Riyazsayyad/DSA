@@ -5,7 +5,7 @@ import java.util.*;
 public class CircularRace {
     static int circularRace(int n, ArrayList<Integer>gas, ArrayList<Integer>burn){
         int start = 0,end = 1, curr = gas.get(0) - burn.get(0);
-
+        if(n == 1) return 1;
         while (start != end){
             while (curr < 0 && start != end){
                 curr -= (gas.get(start) - burn.get(start));

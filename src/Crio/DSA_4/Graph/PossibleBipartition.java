@@ -2,10 +2,13 @@ package Crio.DSA_4.Graph;
 
 import java.util.*;
 class PossibleBipartition {
-    static ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-    static int visited[] = new int[1005];
-    static int color[] = new int[1005];
+    static ArrayList<ArrayList<Integer>> adj ;
+    static int visited[] ;
+
     private static String possibleBipartition(int n, Vector<Vector<Integer> > edges) {
+        adj = new ArrayList<>();
+        visited = new int[1005];
+
         for (int i = 0; i <= n ; i++) {
             adj.add(new ArrayList<>());
         }
@@ -19,21 +22,21 @@ class PossibleBipartition {
         }
 
         for (int i = 1;i <=n;i++){
-            if(visited[i] != 1){
-                if(!isPossible(i)) return "Not Possible";
+            if(visited[i] == 0){
+                if(!isPossible(i,1)) return "Not Possible";
             }
         }
         return "Possible";
     }
 
-    private static boolean isPossible(int curr) {
-        visited[curr] = 1;
-        color[curr] = 5;
-        for (int i = 1;i <= adj.get(curr).size();i++){
+    private static boolean isPossible(int curr, int color) {
+        visited[curr] = color;
+
+        for (int i = 0;i < adj.get(curr).size();i++){
             int v = adj.get(curr).get(i);
-            if (color[i] == 0 ){
-                color[i] = 6;
-            } else return false;
+            if (visited[v] == 0 ){
+                if(isPossible(v, 3-color));
+            } else if(visited[v] != 3-color) return false;
         }
         return true;
     }

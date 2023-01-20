@@ -37,20 +37,27 @@ class CycleDirectedGraph{
         }
         for (int i = 1; i <= n; i++) {
             if(isCyclic(1,visited,recStack) == 1) return 1;
+            Arrays.fill(visited, false);
+            Arrays.fill(recStack, false);
         }
         return 0;
     }
 
     private static int isCyclic(int curr,boolean[] visited,boolean[] callStack) {
-        if(callStack[curr]) return 1;
+        if(visited[curr]){
+            return callStack[curr] ? 1 : 0;
+        }
 
         visited[curr] = true;
         callStack[curr] = true;
-
-        for (int i = 0; i < adj.get(curr).size(); i++) {
-            int u = adj.get(curr).get(i);
-            if(isCyclic(u,visited,callStack) == 1) return 1;
+        if(adj.get(curr).size() > 0){
+            for (int i = 0; i < adj.get(curr).size(); i++) {
+                int u = adj.get(curr).get(i);
+                if(isCyclic(u,visited,callStack) == 1) return 1;
+            }
         }
+
+
         callStack[curr] = false;
         return 0;
     }
