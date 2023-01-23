@@ -4,11 +4,11 @@ import java.util.*;
 public class PalindromePartitioning {
     static ArrayList<ArrayList<String>> result = new ArrayList<>();
     ArrayList<ArrayList<String>> palindromePartitioning(String s) {
-        makePartitions(s,0,s.length(),new ArrayList<>());
+        makePartitions(s,0,s.length(),new LinkedList<>());
         return result;
     }
 
-    private void makePartitions(String s, int index,int n, ArrayList<String> temp) {
+    private void makePartitions(String s, int index,int n, LinkedList<String> temp) {
 
         if(index >= s.length()){
             result.add(new ArrayList<>(temp));
@@ -20,7 +20,7 @@ public class PalindromePartitioning {
 
                 temp.add(s.substring(index,i+1));
                 makePartitions(s,i+1,n,temp);
-                temp.remove(temp.size() - 1);
+                temp.removeLast();
 
             }
         }
