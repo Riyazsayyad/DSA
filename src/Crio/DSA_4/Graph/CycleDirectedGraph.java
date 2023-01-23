@@ -19,13 +19,12 @@ class CycleDirectedGraph{
     }
 
 
-    static ArrayList<ArrayList<Integer>> adj ;
+    static ArrayList<ArrayList<Integer>> adj;
     static int cycleDirectedGraph(int n, int[][] edges){
         boolean[] visited = new boolean[n+1];
         boolean[] recStack = new boolean[n+1];
 
         adj = new ArrayList<>();
-
         for (int i = 0; i <=n ; i++) {
             adj.add(new ArrayList<>());
         }
@@ -33,35 +32,32 @@ class CycleDirectedGraph{
         for(int[] A: edges){
             int x = A[0];
             int y = A[1];
-
             adj.get(x).add(y);
         }
-        if(n == 87871 ) return isCyclic(1,visited,recStack); //hardcoded for last perf testcase
+
         for (int i = 1; i <= n; i++) {
-            if (isCyclic(i,visited,recStack) == 1)  return 1;
-            Arrays.fill(visited, false);
-            Arrays.fill(recStack, false);
+            if(!visited[i]){
+                if(isCyclic(i,visited,recStack)) return 1;
+            }
         }
         return 0;
     }
 
-    private static int isCyclic(int curr,boolean[] visited,boolean[] callStack) {
-        if(visited[curr]){
-            return callStack[curr] ? 1 : 0;
-        }
+    private static boolean isCyclic(int curr,boolean[] visited,boolean[] callStack) {
 
         visited[curr] = true;
         callStack[curr] = true;
-        if(adj.get(curr).size() != 0){
+        if(adj.get(curr).size() > 0) {
             for (int i = 0; i < adj.get(curr).size(); i++) {
                 int u = adj.get(curr).get(i);
-                if(isCyclic(u,visited,callStack) == 1) return 1;
+                if(!visited[u])  {
+                    if(isCyclic(u,visited,callStack)) return true;
+                }
+                else if(callStack[u]) return true;
             }
         }
-
-
         callStack[curr] = false;
-        return 0;
+        return false;
     }
 
 }

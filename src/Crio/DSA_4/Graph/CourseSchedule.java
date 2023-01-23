@@ -15,33 +15,29 @@ class CourseSchedule {
         for (int[] A : prerequisites){
             int x = A[0];
             int y = A[1];
-
             adj.get(y).add(x);
         }
-        if(numCourses == 87871) return true; // for bypassing testcase no 31
-        //System.out.println(Arrays.toString(traversed));
+
         for (int i = 1; i <= numCourses; i++) {
-            if (isCyclic(i,visited,traversed))  return false;
-            Arrays.fill(visited, false);
-            Arrays.fill(traversed, false);
+            if(!visited[i]){
+                if (isCyclic(i,visited,traversed))  return false;
+            }
         }
         return true;
     }
 
     private static boolean isCyclic(int curr,boolean[] visited,boolean[] callStack) {
-        if(visited[curr]){
-            return callStack[curr];
-        }
-
         visited[curr] = true;
         callStack[curr] = true;
-        if(adj.get(curr).size() != 0){
+        if(adj.get(curr).size() > 0){
             for (int i = 0; i < adj.get(curr).size(); i++) {
                 int u = adj.get(curr).get(i);
-                if(isCyclic(u,visited,callStack)) return true;
+                if(!visited[u]){
+                    if(isCyclic(u,visited,callStack)) return true;
+                }
+                else if(callStack[u]) return true;
             }
         }
-
         callStack[curr] = false;
         return false;
     }
