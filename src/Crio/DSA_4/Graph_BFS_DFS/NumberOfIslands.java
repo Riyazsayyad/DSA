@@ -1,5 +1,4 @@
-package Crio.DSA_4.Graph;
-import java.io.*;
+package Crio.DSA_4.Graph_BFS_DFS;
 import java.util.*;
 
 class NumberOfIslands {

@@ -1,6 +1,5 @@
-package Crio.DSA_4.Graph;
+package Crio.DSA_4.Graph_BFS_DFS;
 import java.util.*;
-import java.io.*;
 
 
 class MaxAreaOfIsland{

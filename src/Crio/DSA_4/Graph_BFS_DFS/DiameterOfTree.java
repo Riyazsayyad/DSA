@@ -1,4 +1,4 @@
-package Crio.DSA_4.Graph;
+package Crio.DSA_4.Graph_BFS_DFS;
 import java.util.*;
 
 class DiameterOfTree{
@@ -7,25 +7,32 @@ class DiameterOfTree{
     private static int diameterOfTree(int n,Vector<Vector<Integer>> edges)
     {
         adj = new ArrayList<>();
+        visited = new boolean[n+1];
         for (int i = 0; i <= n; i++) {
             adj.add(new ArrayList<>());
         }
         for (Vector<Integer> E : edges){
             adj.get(E.get(0)).add(E.get(1));
-            adj.get(E.get(1)).add(E.get(0));
+            //adj.get(E.get(1)).add(E.get(0));
         }
-        int farthestEdge = 0;
+        int farthestEdge = 0,I = 0,c = 0;
         for (int j = 1; j <= n; j++) {
-            farthestEdge = Math.max(farthestEdge,dfs(j,0));
+            if(!visited[j]){
+                if(farthestEdge < (c = dfs(j,0))){
+                    farthestEdge = c;
+                    I = j;
+                }
+            }
         }
+        System.out.println(I);
         return farthestEdge;
     }
 
     private static int dfs(int cur,int dist) {
         visited[cur] = true;
         for(int i = 0;i < adj.get(cur).size();i++){
-            System.out.println(i+" "+dist+" "+cur);
-            dist =  dfs(adj.get(cur).get(i),dist)+1;
+            int u = adj.get(cur).get(i);
+            if(!visited[u]) dist =  dfs(u,dist)+1;
         }
         return dist;
     }
