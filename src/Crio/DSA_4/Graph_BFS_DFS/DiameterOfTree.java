@@ -4,37 +4,45 @@ import java.util.*;
 class DiameterOfTree{
     static ArrayList<ArrayList<Integer>> adj ;
     static boolean[] visited;
+    static int[] maxEdges;
+    
     private static int diameterOfTree(int n,Vector<Vector<Integer>> edges)
     {
         adj = new ArrayList<>();
         visited = new boolean[n+1];
+        maxEdges = new int[2]; // 0 -> Distance,1 -> FarthestNode from node 1
+
         for (int i = 0; i <= n; i++) {
             adj.add(new ArrayList<>());
         }
+
         for (Vector<Integer> E : edges){
             adj.get(E.get(0)).add(E.get(1));
-            //adj.get(E.get(1)).add(E.get(0));
+            adj.get(E.get(1)).add(E.get(0));
         }
-        int farthestEdge = 0,I = 0,c = 0;
-        for (int j = 1; j <= n; j++) {
-            if(!visited[j]){
-                if(farthestEdge < (c = dfs(j,0))){
-                    farthestEdge = c;
-                    I = j;
-                }
-            }
-        }
-        System.out.println(I);
-        return farthestEdge;
+
+        dfs(1,0);
+
+        int farthestNodeFrom1 = maxEdges[1];
+        maxEdges = new int[2]; // 0 -> Distance,1 -> FarthestNode from the edge node
+        visited = new boolean[n+1];
+
+        dfs(farthestNodeFrom1,0);
+
+        return maxEdges[0];
     }
 
-    private static int dfs(int cur,int dist) {
+    private static void dfs(int cur,int dist) {
         visited[cur] = true;
-        for(int i = 0;i < adj.get(cur).size();i++){
-            int u = adj.get(cur).get(i);
-            if(!visited[u]) dist =  dfs(u,dist)+1;
+
+        if(dist > maxEdges[0]){
+            maxEdges[0] = dist;
+            maxEdges[1] = cur;
         }
-        return dist;
+
+        for(int u : adj.get(cur)){
+            if(!visited[u]) dfs(u,dist+1);
+        }
     }
 
     public static void main(String[] args) {

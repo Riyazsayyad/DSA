@@ -29,8 +29,8 @@ class KnightWalk{
         Queue<DistPairs> Q = new LinkedList<>();
         Q.offer(new DistPairs(x1,y1));
         /*
-        (r+2, c+1), (r+2, c-1), (r-2, c+1), (r-2, c-1), (r+1, c+2), (r+1, c-2), (r-1, c+2), (r-1, c-2)
-        took below array from above combination of possible steps by knight
+        * (r+2, c+1), (r+2, c-1), (r-2, c+1), (r-2, c-1), (r+1, c+2), (r+1, c-2), (r-1, c+2), (r-1, c-2)
+        * took below array from above combination of possible steps by knight
          */
         int[] X = {2,2,-2,-2,1,-1,1,-1};
         int[] Y = {1,-1,1,-1,2,2,-2,-2};
