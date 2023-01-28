@@ -5,7 +5,7 @@ class DiameterOfTree{
     static ArrayList<ArrayList<Integer>> adj ;
     static boolean[] visited;
     static int[] maxEdges;
-    
+
     private static int diameterOfTree(int n,Vector<Vector<Integer>> edges)
     {
         adj = new ArrayList<>();
