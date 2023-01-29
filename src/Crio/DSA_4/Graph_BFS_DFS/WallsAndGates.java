@@ -24,7 +24,7 @@ class WallsAndGates {
             int row = obj.row,col = obj.col;
             for (int i = 0; i < 4; i++) {
                 int nR = row + X[i],nC = col + Y[i];
-                if(isValid(nR,nC,m,n,grid)){
+                if(isValid(nR,nC,n,m,grid)){
                     visited[nR][nC] = true;
                     result[nR][nC] = result[row][col] + 1;
                     Q.offer(new GatePair(nR,nC));
