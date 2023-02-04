@@ -40,8 +40,7 @@ public class KClosestPointsToOrigin {
             }
 
         }
-        ArrayList<ArrayList<Integer>> ans = new ArrayList<>(Q);
-        return ans;
+        return new ArrayList<>(Q);
     }
 }
 
