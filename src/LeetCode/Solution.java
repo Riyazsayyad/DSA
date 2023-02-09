@@ -26,7 +26,7 @@ class Solution {
 
     public static void main(String[] args) {
 
-        System.out.println(convert("PAYPALISHIRING",4));;
+        System.out.println();
     }
 
     public int[][] kClosest(int[][] points, int k) {
@@ -86,5 +86,89 @@ class Solution {
 
         return result.toString();
     }
+
+    public int totalFruit(int[] fruits) {
+        int left = 0, right;
+        Map<Integer,Integer> map = new HashMap<>();
+
+        for (right = 0; right < fruits.length; ++right) {
+            map.put(fruits[right],map.getOrDefault(fruits[right],0)+1);
+
+            if(map.size() > 2){
+                map.put(fruits[left],map.get(fruits[left])-1);
+                if(map.get(fruits[left]) == 0) map.remove(fruits[left]);
+                left++;
+            }
+        }
+
+        return right - left;
+    }
+
+    public long distinctNames(String[] ideas) {
+        int n = ideas.length;
+        Set<String> ideaSet = new HashSet<>(Arrays.asList(ideas));
+        Set<String> validNames = new HashSet<>();
+
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < n;j++){
+                if(j != i){
+                    String [] ans = swapFirstChar(ideas[i],ideas[j]);
+                    if(!ideaSet.contains(ans[0]) && !ideaSet.contains(ans[1])){
+                        validNames.add(ans[0].concat(" ").concat(ans[1]));
+                    }
+                }
+            }
+        }
+        return validNames.size();
+    }
+
+    private String[] swapFirstChar(String s1, String s2) {
+        StringBuilder word1 = new StringBuilder(s1);
+        StringBuilder word2 = new StringBuilder(s2);
+
+        word1.replace(0,1, String.valueOf(s2.charAt(0)));
+        word2.replace(0,1, String.valueOf(s1.charAt(0)));
+
+        return new String[]{word1.toString(),word2.toString()};
+    }
 }
 
+/*
+    public int totalFruit(int[] fruits) {
+        Map<Integer,Integer> map = new HashMap<>();
+        PriorityQueue<FruitCart> pQ = new PriorityQueue<>((a,b) -> b.count - a.count);
+
+        for(int f : fruits){
+            map.put(f,map.getOrDefault(f,0)+1);
+        }
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()){
+            if(pQ.size() <= 2)
+            {
+                pQ.add(new FruitCart(entry.getKey(),entry.getValue()));
+            }
+            else
+            {
+                if(pQ.peek().count < entry.getValue()){
+                    pQ.poll();
+                    pQ.add(new FruitCart(entry.getKey(),entry.getValue()));
+                }
+            }
+        }
+
+        int sum = 0;
+        while (!pQ.isEmpty()){
+            sum += pQ.poll().count;
+        }
+
+        return sum;
+    }
+
+    static class FruitCart{
+        int fruit,count;
+        private FruitCart(int fruit, int count){
+            this.count = count;
+            this.fruit = fruit;
+        }
+    }
+ */

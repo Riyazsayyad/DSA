@@ -1,4 +1,4 @@
-package Crio.DSA_3;
+package Crio.DSA_3.BT_and_BST;
 
 public class MirrorBinaryTree {
     public TreeNode mirrorBinaryTree(TreeNode root) {

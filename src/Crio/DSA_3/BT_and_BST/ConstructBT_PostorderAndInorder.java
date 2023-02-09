@@ -1,4 +1,5 @@
-package Crio.DSA_3;
+package Crio.DSA_3.BT_and_BST;
+
 import java.util.*;
 public class ConstructBT_PostorderAndInorder {
     public TreeNode root;
@@ -12,7 +13,7 @@ public class ConstructBT_PostorderAndInorder {
         return buildTree(inorder,0, n-1,postorder,0,n-1);
     }
 
-    private TreeNode buildTree(int[] inorder,int iS, int iE,int[] postorder, int pS, int pE) {
+    private TreeNode buildTree(int[] inorder, int iS, int iE, int[] postorder, int pS, int pE) {
         // Base condition and root initialization
         if( iS > iE || pS > pE)    return null;
         //last node is root in post order

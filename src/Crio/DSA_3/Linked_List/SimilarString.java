@@ -1,4 +1,4 @@
-package Crio.DSA_3;
+package Crio.DSA_3.Linked_List;
 
 import java.util.*;
 

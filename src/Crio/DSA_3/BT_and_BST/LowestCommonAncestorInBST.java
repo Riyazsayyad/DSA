@@ -1,4 +1,5 @@
-package Crio.DSA_3;
+package Crio.DSA_3.BT_and_BST;
+
 import java.util.*;
 public class LowestCommonAncestorInBST {
     public TreeNode lowestCommonAncestorInBST(TreeNode root, TreeNode p, TreeNode q) {

@@ -1,10 +1,10 @@
-package Crio.DSA_3;
+package Crio.DSA_3.BT_and_BST;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class InorderSuccessor {
-    public int inorderSuccessor(TreeNode root,TreeNode givenNode)
+    public int inorderSuccessor(TreeNode root, TreeNode givenNode)
     {
         // Iterative inOrder traversal, O(1) space solution failing
         Deque<TreeNode> deque = new ArrayDeque<>();

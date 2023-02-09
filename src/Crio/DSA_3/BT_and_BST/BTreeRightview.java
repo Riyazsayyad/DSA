@@ -1,4 +1,6 @@
-package Crio.DSA_3;
+package Crio.DSA_3.BT_and_BST;
+
+
 import java.util.*;
 public class BTreeRightview {
 

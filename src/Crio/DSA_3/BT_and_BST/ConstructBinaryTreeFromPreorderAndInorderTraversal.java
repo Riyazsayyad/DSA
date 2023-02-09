@@ -1,4 +1,5 @@
-package Crio.DSA_3;
+package Crio.DSA_3.BT_and_BST;
+
 
 import java.util.*;
 
@@ -7,7 +8,7 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
     static int preIndex = 0 ;
     public HashMap<Integer,Integer> map = new HashMap<>();
 
-    private TreeNode buildTree(int[] inorder,int[] preorder,int inStart, int inEnd ) {
+    private TreeNode buildTree(int[] inorder, int[] preorder, int inStart, int inEnd ) {
         // Base condition and root initialization
         if( inStart > inEnd)    return null;
         TreeNode tNode = new TreeNode(preorder[preIndex++]);

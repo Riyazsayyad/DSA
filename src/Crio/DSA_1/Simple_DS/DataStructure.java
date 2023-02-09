@@ -3,7 +3,7 @@ package Crio.DSA_1.Simple_DS;
 import java.util.*;
 import java.util.Iterator;
 
-public class The_Comparator implements Comparator<Integer> {
+class The_Comparator implements Comparator<Integer> {
     public int compare(Integer str1, Integer str2)
     {
         Integer first;

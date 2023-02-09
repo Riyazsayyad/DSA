@@ -1,4 +1,5 @@
-package Crio.DSA_3;
+package Crio.DSA_3.BT_and_BST;
+
 
 public class CommonAncestor {
     TreeNode commonAncestor(TreeNode root, TreeNode p , TreeNode q) {

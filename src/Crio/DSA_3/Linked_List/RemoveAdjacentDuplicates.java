@@ -1,4 +1,4 @@
-package Crio.DSA_3;
+package Crio.DSA_3.Linked_List;
 import java.util.*;
 class RemoveAdjacentDuplicates{
     public static void main(String args[]){
