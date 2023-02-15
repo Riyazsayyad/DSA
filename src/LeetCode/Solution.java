@@ -1,4 +1,6 @@
 package LeetCode;
+import javafx.util.Pair;
+
 import java.util.*;
 
 class Solution {
@@ -130,6 +132,119 @@ class Solution {
         word2.replace(0,1, String.valueOf(s1.charAt(0)));
 
         return new String[]{word1.toString(),word2.toString()};
+    }
+
+    public int maxDistance(int[][] grid) {
+        int n = grid.length;
+        Queue<Pair<Integer,Integer>> Q = new LinkedList<>(),Q1 = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if(grid[i][j] == 1){
+                    Q.offer(new Pair<>(i+1,j));
+                    Q.offer(new Pair<>(i-1,j));
+                    Q.offer(new Pair<>(i,j+1));
+                    Q.offer(new Pair<>(i,j-1));
+                }
+            }
+        }
+        int steps = 0;
+        while (!Q.isEmpty()){
+            ++steps;
+            while (!Q.isEmpty()){
+                Pair<Integer,Integer> pair = Q.poll();
+                int row = pair.getKey(),col = pair.getValue();
+                if(row >= 0 && col >= 0 && row < n && col < n && grid[row][col] == 0){
+                    grid[row][col] = steps;
+                    Q1.offer(new Pair<>(row+1,col));
+                    Q1.offer(new Pair<>(row-1,col));
+                    Q1.offer(new Pair<>(row,col+1));
+                    Q1.offer(new Pair<>(row,col-1));
+                }
+            }
+            Queue<Pair<Integer,Integer>> temp = Q;
+            Q = Q1;
+            Q1 = temp;
+        }
+
+        return steps == 1 ? -1 : --steps;
+    }
+
+    public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
+        int[][] graph = new int[n][n];
+        for (int [] A : graph ) Arrays.fill(A,-n);
+        buildGraph(graph,redEdges,blueEdges);
+        Queue<int[]> Q = new LinkedList<>();
+        Q.offer(new int[]{0,1});
+        Q.offer(new int[]{0,-1});
+        int len = 0;
+        Set<String> visited = new HashSet<>();
+        int[] result = new int[n];
+        Arrays.fill(result,Integer.MAX_VALUE);
+        while (!Q.isEmpty()){
+            len++;
+            int size = Q.size();
+            for (int i = 0; i < size; i++) {
+                int[] curr = Q.poll();
+                int node = curr[0],color = curr[1];
+                int oppColor = -color;
+
+                for (int j = 1; j < n; j++) {
+                    if(graph[node][j] == oppColor || graph[node][j] == 0){
+                        if(!visited.add(j+""+oppColor)) continue;
+                        Q.offer(new int[]{j,oppColor});
+                        result[j] = Math.min(result[j],len);
+                    }
+                }
+            }
+        }
+
+        for (int i = 1; i < n; i++) {
+            if(result[i] == Integer.MAX_VALUE) result[i] = -1;
+        }
+
+        return result;
+    }
+
+    private void buildGraph(int[][] graph, int[][] redEdges, int[][] blueEdges) {
+        for (int [] A: redEdges){
+            graph[A[0]][A[1]] = 1;
+        }
+        for (int [] A: blueEdges){
+            if(graph[A[0]][A[1]] == 1) graph[A[0]][A[1]] = 0;
+            else graph[A[0]][A[1]] = -1;
+        }
+
+    }
+
+    private void bfs(Map<Integer, List<Integer>> redGraph, Map<Integer, List<Integer>> blueGraph, int node) {
+
+    }
+
+    HashMap<Integer,ArrayList<Integer>> graph;
+    public long minimumFuelCost(int[][] roads, int seats) {
+        graph = new HashMap<>();
+        for (int i = 0; i <= roads.length; i++) graph.put(i,new ArrayList<>());
+
+        for (int [] A : roads){
+            graph.get(A[0]).add(A[1]);
+            graph.get(A[1]).add(A[0]);
+        }
+
+        return 0l;
+    }
+
+    public String addBinary(String a, String b) {
+        int n = a.length() > b.length() ? b.length() - 1 : a.length() - 1;
+        String ans = "";
+        while (n-- > -1){
+            int sum = Integer.parseInt(String.valueOf(a.charAt(n))) + Integer.parseInt(String.valueOf(b.charAt(n)));
+            String binary = Integer.toBinaryString(sum);
+            System.out.println(binary);
+            ans = binary.length() > 1 ?
+                    ans.concat(String.valueOf(binary.charAt(1))) : ans.concat(String.valueOf(binary.charAt(0)));
+
+        }
+        return ans;
     }
 }
 
