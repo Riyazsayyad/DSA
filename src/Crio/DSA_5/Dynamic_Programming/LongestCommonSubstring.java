@@ -25,7 +25,7 @@ class LongestCommonSubstring{
                 ans = Math.max(ans,dp[i][j]);
             }
         }
-        
+
         return ans;
     }
 }
