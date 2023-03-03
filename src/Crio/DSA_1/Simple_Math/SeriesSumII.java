@@ -18,9 +18,6 @@ public class SeriesSumII {
     // TODO: Implement this method
     static double seriesSumII(double A, double R) {
         double num= A/(1-R);
-
-
         return num;
-
     }
 }

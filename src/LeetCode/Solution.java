@@ -246,6 +246,96 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] twoSum(int[] nums, int target) {
+        int n = nums.length;
+        int[][] A = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            A[i][0] = nums[i];
+            A[i][1] = i;
+        }
+        Arrays.sort(A, Comparator.comparingInt(a -> a[0]));
+        System.out.println(Arrays.deepToString(A));
+        return new int[]{};
+    }
+
+    //Merge Sort
+    public int[] sortArray(int[] nums) {
+        sort(nums,0,nums.length-1);
+        return nums;
+    }
+
+    private void sort(int[] nums, int start, int end) {
+
+        if(start < end){
+            int mid = start + (end - start)/2;
+
+            sort(nums,start,mid);
+            sort(nums,mid+1,end);
+
+            merge(nums,start,mid,end);
+        }
+    }
+
+    private void merge(int[] nums, int start, int mid, int end) {
+        int n1 = mid - start + 1,n2 = end - mid;
+        int L[] = new int[n1],R[] = new int[n2];
+
+        System.arraycopy(nums,start,L,0,n1);
+        System.arraycopy(nums,mid+1,R,0,n2);
+
+        int i = 0, j = 0;
+
+        int k = start;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                nums[k] = L[i];
+                i++;
+            }
+            else {
+                nums[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            nums[k] = L[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            nums[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    public int compress(char[] chars) {
+        if(chars.length == 1) return 1;
+
+        int i = 0,j = 1;
+        StringBuilder result = new StringBuilder();
+
+        while (j < chars.length){
+            if(chars[i] == chars[j]) j++;
+            else {
+                if ((j - i) == 1) result.append(chars[i]);
+                else result.append(chars[i]).append(j - i);
+                i = j++;
+            }
+        }
+
+        if ((j - i) == 1) result.append(chars[i]);
+        else result.append(chars[i]).append(j - i);
+
+        int n = result.length(),k = 0;
+        for (char x : result.toString().toCharArray()) chars[k++] = x;
+
+        return n;
+    }
+
 }
 
 /*

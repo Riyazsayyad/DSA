@@ -3,7 +3,7 @@ import java.util.*;
 public class CountSmallAfterSelf {
 
     public ArrayList<Integer> countOfSmallerNumberAfterSelf(int[] nums) {
-        SegmentTree tree = new SegmentTree(Integer.MIN_VALUE,Integer.MAX_VALUE,0);
+        SegmentTree tree = new SegmentTree(0,Integer.MAX_VALUE,0);
         ArrayList<Integer> result = new ArrayList<>();
         for(int i = nums.length-1 ; i>= 0 ; i--) {
             result.add(tree.query(Integer.MIN_VALUE,nums[i]-1));
