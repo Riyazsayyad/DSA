@@ -4,8 +4,15 @@ import java.util.*;
 public class RectangleArea {
 
     public long findArea(int n, int[][] rectangles) {
-        /*Nhi samj rha*/
-        return 0;
+        int maxX = 0,maxY = 0;
+        for (int[] A : rectangles){
+            maxX = Math.max(A[0],A[2]);
+            maxY = Math.max(A[1],A[3]);
+        }
+
+        boolean[][] grid = new boolean[maxY+1][maxX+1];
+
+
     }
 
 
