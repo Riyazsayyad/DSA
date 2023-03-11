@@ -570,7 +570,7 @@ class Solution {
         return root;
     }
 
-    
+
 }
 
 /*
