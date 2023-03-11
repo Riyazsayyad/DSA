@@ -1,4 +1,5 @@
 package LeetCode;
+import com.sun.source.tree.Tree;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -27,8 +28,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
-
-        System.out.println();
+        System.out.println(maxTripletProduct(new long[]{-3, -5, 1, 0, 8, 3, -2},4));
     }
 
     public int[][] kClosest(int[][] points, int k) {
@@ -343,6 +343,234 @@ class Solution {
         }
         return -1;
     }
+
+    public long countSubarrays(int[] nums, int minK, int maxK) {
+        int minKPos = -1,maxKPos = -1,culIndex = -1;
+        long temp = 0,ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if(maxK < nums[i] || minK > nums[i]) culIndex = i;
+            if(nums[i] == minK) minKPos = i;
+            if(nums[i] == maxK) maxKPos = i;
+
+
+            long smaller = Math.min(minKPos,maxKPos);
+            temp = smaller - culIndex;
+            ans += Math.max(temp, 0);
+        }
+        return ans;
+    }
+
+    public static int findKthPositive(int[] arr, int k) {
+        Set<Integer> set = new HashSet<>();
+        for (int x : arr) set.add(x);
+
+        int num = 0,result = 0,size = 0;
+        while (size != k){
+            if(!set.contains(++num)) size++;
+        }
+
+        return num;
+    }
+
+    public static int minJumps(int[] arr) {
+        Map<Integer,ArrayList<Integer>> map = new HashMap<>();
+        Queue<Integer> Q = new LinkedList<>();
+        int n = arr.length;
+        boolean[] visited = new boolean[n];
+
+        for (int value : arr) map.put(value, new ArrayList<>());
+        for (int i = 0; i < n; i++) map.get(arr[i]).add(i);
+
+        int steps = 0;
+        Q.offer(0);
+        visited[0] = true;
+
+        while (!Q.isEmpty()){
+            int size = Q.size();
+
+            while (size-- != 0){
+                int cur = Q.poll();
+
+                if(cur == n-1) return steps;
+
+                if (cur-1 >= 0 && !visited[cur-1]) {
+                    Q.offer(cur - 1);
+                    visited[cur-1] = true;
+                    }
+                if (cur+1 < n  && !visited[cur+1]){
+                    Q.offer(cur+1);
+                    visited[cur+1] = true;
+                    }
+                for(int i : map.getOrDefault(arr[cur],new ArrayList<>())){
+                    if(!visited[i]){
+                        Q.offer(i);
+                        visited[i] = true;
+                    }
+                }
+                map.remove(arr[cur]);
+            }
+            steps++;
+        }
+        return -1;
+    }
+
+    public long minimumTime(int[] time, int totalTrips) {
+        int minTime = Integer.MAX_VALUE;
+        for(int t : time) minTime = Math.min(minTime,t);
+        long start = 1,end = minTime * totalTrips;
+
+        while (start < end){
+            long mid = start + (end - start)/2;
+            if(canMakeTrip(mid,time,totalTrips)) end = mid;
+            else start = mid + 1;
+        }
+        
+        return start;
+    }
+
+    private boolean canMakeTrip(long cTime, int[] time, int totalTrips) {
+        int actualTrips = 0;
+        for(int x : time){
+            actualTrips += cTime / x;
+        }
+        return actualTrips >= totalTrips;
+    }
+
+    public static int minEatingSpeed(int[] piles, int h) {
+        int left = 1,right = Arrays.stream(piles).max().getAsInt();
+        while (left < right){
+            int mid = left + (right - left)/2;
+            if(canEat(piles,mid,h)) right = mid;
+            else left = mid + 1;
+        }
+
+        return left;
+    }
+
+    private static boolean canEat(int[] piles, int rate, int h) {
+        int actualHours = 0;
+        for(int P : piles) actualHours += (P-1)/rate + 1;
+        return actualHours <= h;
+    }
+
+    public void nextPermutation(int[] nums) {
+        int n = nums.length,k,l;
+
+        //break point decreasing sequence
+        for(k = n - 2;k >= 0;k--){
+            if(nums[k] < nums[k+1]) break;
+        }
+
+        //if the whole array is in decreasing sequence
+        if(k < 0) reverse(nums,0,n-1);
+        else{
+            //break point of increasing sequence
+            for(l = n - 1;l > k;l--){
+                if(nums[l] > nums[k]) break;
+            }
+            swap(nums,k,l);
+            reverse(nums,k+1,n-1);
+        }
+    }
+
+    void swap(int[] A,int k, int l) {
+        int temp = A[k];
+        A[k] = A[l];
+        A[l] = temp;
+    }
+
+    void reverse(int[] A,int l,int r){
+        while(l<r){
+            int temp = A[l];
+            A[l] = A[r];
+            A[r] = temp;
+            l++; r--;
+        }
+    }
+
+    static Long maxTripletProduct(long[] arr, int n)
+    {
+        //n = 7
+        //arr[] = {-3, -5, 1, 0, 8, 3, -2}
+
+        long max1,max2,max3;
+        max1 = max2 = max3 = Long.MIN_VALUE;
+        long min1,min2;
+        min1 = min2 = Long.MAX_VALUE;
+
+        for (long num : arr){
+
+            if(max1 < num){
+                max3 = max2;
+                max2 = max1;
+                max1 = num;
+            }
+            else if(num > max2){
+                max3 = max2;
+                max2 = num;
+            }
+            else if(num > max3){
+                max3 = num;
+            }
+
+            if(min1 > num){
+                min2 = min1;
+                min1 = num;
+            }
+            else if(min2 > num) min2 = num;
+        }
+
+        //System.out.println(max1+" "+max2+" "+max3+" "+min1+" "+min2);
+        return Math.max(max1 * min1 * min2,max1 * max2 * max3);
+    }
+
+    ArrayList<Integer> A;
+    Random rand = new Random();
+    public Solution(ListNode head) {
+        A = new ArrayList<>();
+        while(head != null){
+            A.add(head.val);
+            head = head.next;
+        }
+    }
+
+    public int getRandom() {
+        int randomIndex = rand.nextInt(A.size());
+        return A.get(randomIndex);
+    }
+
+    public TreeNode sortedListToBST(ListNode head) {
+        if(head == null) return null;
+        //Finding size
+        int size = 0;
+        ListNode curr = head;
+        while (curr != null){
+            ++size;
+            curr = curr.next;
+        }
+
+        //Forming array
+        int A[] = new int[size];
+        curr = head;
+        for (int i = 0; i < size; i++) {
+            A[i] = curr.val;
+            curr = curr.next;
+        }
+
+        //Forming BT
+        return buildBST(A,0,A.length-1);
+    }
+
+    private TreeNode buildBST(int[] A, int left, int right) {
+        if(left > right) return null;
+        int mid = left + (right - left)/2;
+        TreeNode root = new TreeNode(A[mid]);
+        root.left = buildBST(A,left,mid-1);
+        root.right = buildBST(A,mid+1,right);
+        return root;
+    }
+
+    
 }
 
 /*

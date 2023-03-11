@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/Crio/DEV_OOP/Application_of_Encapsulation" vcs="Git" />
   </component>
 </project>

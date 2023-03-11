@@ -4,41 +4,37 @@ import java.util.Arrays;
 
 public class NextPermutation {
     public void nextPermutation(int[] nums) {
-        StringBuilder num = new StringBuilder();
-        for (int a : nums) num.append(a);
+        int n = nums.length,k,l;
 
-        String ans = getNextGreaterPermutation(new StringBuilder(num),num,0,num.length());
-
-        if(ans == null){
-            int start = 0,end = nums.length-1;
-            while (start++ <= end--){
-                int temp = nums[start];
-                nums[start] = nums[end];
-                nums[end] = temp;
-            }
-        }else{
-            for (int i = 0; i < nums.length; i++) {
-                nums[i] = Character.getNumericValue(ans.charAt(i));
-            }
+        //break point decreasing sequence
+        for(k = n - 2;k >= 0;k--){
+            if(nums[k] < nums[k+1]) break;
         }
 
-    }
-
-    private String getNextGreaterPermutation(StringBuilder orgString,StringBuilder num,int l,int r) {
-        if(l == r && Integer.parseInt(orgString.toString()) < Integer.parseInt(num.toString()) ) return num.toString();
-
-        for (int i = l; i < num.length(); i++) {
-            swap(num, l, i);
-            String nextGreater = getNextGreaterPermutation(orgString,num, l + 1, r);
-            if (nextGreater != null) return nextGreater;
-            swap(num, l, i);
+        //if the whole array is in decreasing sequence
+        if(k < 0) reverse(nums,0,n-1);
+        else{
+            //break point of increasing sequence
+            for(l = n - 1;l > k;l--){
+                if(nums[l] > nums[k]) break;
+            }
+            swap(nums,k,l);
+            reverse(nums,k+1,n-1);
         }
-        return null;
     }
 
-    private static void swap(StringBuilder num, int i, int j) {
-        char temp = num.charAt(i);
-        num.setCharAt(i, num.charAt(j));
-        num.setCharAt(j, temp);
+    void swap(int[] A,int k, int l) {
+        int temp = A[k];
+        A[k] = A[l];
+        A[l] = temp;
+    }
+
+    void reverse(int[] A,int l,int r){
+        while(l<r){
+            int temp = A[l];
+            A[l] = A[r];
+            A[r] = temp;
+            l++; r--;
+        }
     }
 }
