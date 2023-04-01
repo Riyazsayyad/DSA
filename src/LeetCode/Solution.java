@@ -1,10 +1,16 @@
 package LeetCode;
-import com.sun.source.tree.Tree;
+
 import javafx.util.Pair;
 
 import java.util.*;
 
 class Solution {
+    public static void main(String[] args) {
+        ArrayList<Integer> A = new ArrayList<>();
+        A.add(3);   A.add(1);   A.add(5);   A.add(8);
+        System.out.println(maxCoins(4,A));
+    }
+
     public static int[][] insert(int[][] A, int[] N) {
         ArrayList<int []> result = new ArrayList<>();
 
@@ -25,10 +31,6 @@ class Solution {
         while (index < n) result.add(A[index++]);
 
         return result.toArray(new int[result.size()][]);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(maxTripletProduct(new long[]{-3, -5, 1, 0, 8, 3, -2},4));
     }
 
     public int[][] kClosest(int[][] points, int k) {
@@ -524,7 +526,7 @@ class Solution {
         return Math.max(max1 * min1 * min2,max1 * max2 * max3);
     }
 
-    ArrayList<Integer> A;
+    ArrayList A;
     Random rand = new Random();
     public Solution(ListNode head) {
         A = new ArrayList<>();
@@ -536,7 +538,7 @@ class Solution {
 
     public int getRandom() {
         int randomIndex = rand.nextInt(A.size());
-        return A.get(randomIndex);
+        return (int) A.get(randomIndex);
     }
 
     public TreeNode sortedListToBST(ListNode head) {
@@ -570,11 +572,43 @@ class Solution {
         return root;
     }
 
+    public static boolean isPalindrome(ListNode head)
+    {
+        if(head == null && head.next == null) return false;
 
-}
+        ListNode curr = head;
+        int size = 0;
+        while (curr != null){
+            curr = curr.next;
+            ++size;
+        }
 
-/*
-    public int totalFruit(int[] fruits) {
+        int[] A = new int[size/2];
+        ListNode slow = head, fast = head;
+        while(slow != null && fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        curr = head;
+        int i = (size/2) - 1;
+        while (curr != slow){
+            A[i--] = curr.val;
+            curr = curr.next;
+        }
+
+        i = 0;
+        slow = size % 2 == 0 ? slow : slow.next;
+        while (slow != null){
+            //System.out.println(slow.val);
+            if(A[i++] != slow.val) return false;
+            slow = slow.next;
+        }
+
+        return true;
+    }
+
+    public int totalFruitT(int[] fruits) {
         Map<Integer,Integer> map = new HashMap<>();
         PriorityQueue<FruitCart> pQ = new PriorityQueue<>((a,b) -> b.count - a.count);
 
@@ -611,4 +645,403 @@ class Solution {
             this.fruit = fruit;
         }
     }
- */
+
+    boolean check(TreeNode l,TreeNode r){
+        if(l == null || r == null) return l == r;
+        if(l.val != r.val) return false;
+        return check(l.left,r.right) && check(l.right,r.left);
+    }
+
+    public boolean isSymmetric(TreeNode root) {
+        return root == null || check(root.left,root.right);
+    }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+
+        PriorityQueue<Integer> Q = new PriorityQueue<>();
+        for (ListNode head : lists){
+            while (head != null){
+                Q.offer(head.val);
+                head = head.next;
+            }
+        }
+
+        ListNode T = new ListNode(-1);
+        ListNode result = T;
+        while (!Q.isEmpty()){
+            T.next = new ListNode(Q.poll());
+            T = T.next;
+        }
+
+        return result.next;
+    }
+
+    //Deception Reason:  Mathematics
+    static long maxPossibleValue(int N, int[] A, int[] B) {
+        long x , y, mn = (long)1e10, ans = 0, tot = 0;
+        for(int i = 0; i < N; i++){
+            x = A[i];
+            y = B[i];
+            if(y % 2 == 1) y--;
+            if(y >= 2) mn = Math.min(mn,x);
+            ans += y*x;
+            tot += y;
+        }
+        if(tot % 4 != 0) ans -= 2l * mn;
+
+        return ans;
+    }
+
+    static int  maxCoins(int N, ArrayList<Integer> arr) {
+        //Write your code here
+        int result = 0;
+        Map<Integer,Integer> map = new TreeMap<>();
+
+        for (int i = 0; i < N; i++) {
+            map.put(i,arr.get(i));
+        }
+
+        int index,value;
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+            index = entry.getKey(); value = entry.getValue();
+            result +=  value + ((index - 1) >= 0 ? arr.get(index - 1) : 1) + ((index + 1) < N ? arr.get(index + 1) : 1);
+            arr.remove(index);
+        }
+
+        return result;
+    }
+
+    ArrayList<String> paths;
+    public int sumNumbers(TreeNode root) {
+        paths = new ArrayList<>();
+        inOrder(root,new StringBuilder(""));
+        int result = 0;
+        for(String num : paths){
+            result += Integer.parseInt(num);
+        }
+        return result;
+    }
+
+    private void inOrder(TreeNode root,StringBuilder path){
+        if(root == null) return;
+        path.append(root.val);
+        if(root.left == null && root.right == null) paths.add(path.toString());
+
+        inOrder(root.left,path);
+        inOrder(root.right,path);
+
+        path.replace(path.length()-1,path.length(),"");
+    }
+
+    public boolean isCompleteTree(TreeNode root) {
+        boolean end = false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            if(cur == null) end = true;
+            else{
+                if(end) return false;
+                queue.add(cur.left);
+                queue.add(cur.right);
+            }
+        }
+        return true;
+    }
+
+    private int getHeight(TreeNode root,int h) {
+        if(root == null) return 0;
+        return Math.max(getHeight(root.left,h+1),getHeight(root.right,h+1));
+    }
+
+    public  static int specialPalindrome(String a, String b){
+        //Code Here
+        return -1;
+    }
+/*
+    // Accepted Solution using Doubly linked list
+    private static class LL{
+        LL back,front;
+        String val;
+        private LL(String val){
+            this.val = val;
+        }
+    }
+    LL head;
+
+//    public BrowserHistory(String homepage) {
+//        head = new LL(homepage);
+//        head.front = head;
+//        head.back = head;
+//    }
+
+    public void visit(String url) {
+        LL curr = new LL(url);
+        head.front = curr;
+        curr.back = head;
+        head = curr;
+    }
+
+    public String back(int steps) {
+        for (int i = 0; i < steps; i++) {
+            head = head.back;
+        }
+        return head.val;
+    }
+
+    public String forward(int steps) {
+        for (int i = 0; i < steps; i++) {
+            head = head.front;
+        }
+        return head.val;
+    }
+    //END
+*/
+
+    private HashMap<Integer,ArrayList<int[]>> Graph;
+    private HashSet<Integer> visited;
+    int result1;
+    public int minScore(int n, int[][] roads) {
+        Graph = new HashMap<>();
+        visited = new HashSet<>();
+        result1 = Integer.MAX_VALUE;
+
+        for (int i = 0; i <= n; i++) Graph.put(i,new ArrayList<>());
+
+        for (int[] road : roads) {
+            Graph.get(road[0]).add(new int[]{road[1], road[2]});
+            Graph.get(road[1]).add(new int[]{road[0], road[2]});
+        }
+
+        dfs(1);
+
+        return result1;
+    }
+
+    private void dfs(int node) {
+        visited.add(node);
+        for (int[] A : Graph.get(node)){
+            result1 = Math.min(A[1], result1);
+            if(!visited.contains(A[0])) dfs(A[0]);
+        }
+    }
+
+    class TrieNode{
+        String item;
+        TrieNode[] children;
+
+        public TrieNode(){
+            item = "";
+            children = new  TrieNode[26];
+        }
+    }
+
+    private TrieNode root;
+    private int maxWordLen;
+//    public WordDictionary() {
+//        maxWordLen = 0;
+//        root = new TrieNode();
+//    }
+
+    public void addWord(String word) {
+        maxWordLen = Math.max(maxWordLen,word.length());
+        TrieNode curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            int index = word.charAt(i) - 'a';
+            if(curr.children[index] == null) curr.children[index] = new TrieNode();
+            curr = curr.children[index];
+        }
+        curr.item = word;
+    }
+
+    public boolean search(String word) {
+        return match(word.toCharArray(),0,root);
+    }
+
+    private boolean match(char[] word, int i, TrieNode root) {
+        if(i == word.length) return !root.item.equals("");
+
+        if(word[i] != '.') return root.children[word[i]-'a'] != null && match(word,i+1,root.children[word[i]-'a']);
+        else{
+            for (int j = 0; j < word.length; j++) {
+                if(root.children[j] != null){
+                    if(match(word,i+1,root.children[j])) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean canPlaceFlowers(int[] A, int n) {
+        int size = A.length;
+        for(int i = 0;i < size;i++){
+            if(n == 0) return true;
+            if(A[i-1 < 0 ? 0 : i-1] != 1 && A[i+1 >= size ? i : i+1] != 1 && A[i] != 1){
+                A[i] = 1;
+                n--;
+            }
+        }
+        return n == 0;
+    }
+
+    HashMap<Integer,ArrayList<int[]>> G;
+    int count;
+    public int minReorder(int n, int[][] connections) {
+        G = new HashMap<>();
+        count = 0;
+        for (int i = 0; i < n; i++) {
+            G.put(i,new ArrayList<>());
+        }
+        for (int [] A : connections){
+            G.get(A[0]).add(new int[]{A[1],1});
+            G.get(A[1]).add(new int[]{A[0],0});
+        }
+        dfs(0,-1);
+        return count;
+    }
+
+    private void dfs(int node, int parent) {
+        for(int[] A : G.get(node)){
+            if(A[0] != parent){
+                if(A[1] == 1) count++;
+                dfs(A[0],node);
+            }
+        }
+    }
+
+
+    private int[] parent;
+    private int[] rank;
+
+    public int find(int x) {
+        if (x == parent[x]) return x;
+        return parent[x] = find(parent[x]);
+    }
+
+    public void union(int x, int y) {
+        int xParent = find(x);
+        int yParent = find(y);
+
+        if (xParent == yParent) return;
+
+
+        if (rank[xParent] > rank[yParent]) parent[yParent] = xParent;
+        else if (rank[xParent] < rank[yParent]) parent[xParent] = yParent;
+        else {
+            parent[xParent] = yParent;
+            rank[yParent]++;
+        }
+    }
+    //result += size * (remaining node - size)
+    public long countPairs(int n, int[][] edges) {
+        parent = new int[n];
+        rank = new int[n];
+
+        for (int i = 0; i < n; i++) parent[i] = i;
+
+        Map<Integer,Integer> map = new HashMap<>();
+
+        for (int [] A : edges){
+            if(find(A[0]) != find(A[1])){
+                union(A[0],A[1]);
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            int parent = find(i);
+            map.put(parent,map.getOrDefault(parent,0)+1);
+        }
+
+        long result = 0;
+        long remainingNodes = n;
+
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+            long size = entry.getValue();
+            result += size * (remainingNodes - size);
+            remainingNodes -= size;
+        }
+        return result;
+    }
+
+/*
+    boolean[] inRecursion;
+    boolean[] visited1;
+    int[] count1;
+    int result1 = -1;
+    public int longestCycle(int[] edges) {
+        int n = edges.length;
+        visited1 = new boolean[n];
+        inRecursion = new boolean[n];
+        count1 = new int[n];
+
+        Arrays.fill(count1,1);
+
+        for(int i = 0;i < n;i++){
+            if(!visited1[i]) dfs(i,edges);
+        }
+
+        return result1;
+    }
+
+    void dfs(int parent,int[] edges){
+        if(parent != -1){
+            visited1[parent] = true;
+            inRecursion[parent] = true;
+
+            int child = edges[parent];
+            if(child != -1 && !visited1[child]){
+                count1[child] = count1[parent] + 1;
+                dfs(child,edges);
+            }
+            else if(child != -1 && inRecursion[child]){
+                result1 = Math.max(result1, count1[parent] - count1[child]+1);
+            }
+            inRecursion[parent] = false;
+        }
+    }
+*/
+
+    public int longestCycle(int[] edges) {
+        int ans = -1;
+        int time = 1;
+        int[] timeVisited = new int[edges.length];
+
+        for (int i = 0; i < edges.length; ++i) {
+            if (timeVisited[i] > 0)
+                continue;
+            final int startTime = time;
+            int u = i;
+            while (u != -1 && timeVisited[u] == 0) {
+                timeVisited[u] = time++;
+                u = edges[u]; // Move to next node
+            }
+            if (u != -1 && timeVisited[u] >= startTime)
+                ans = Math.max(ans, time - timeVisited[u]);
+        }
+        return ans;
+    }
+
+
+    int[][] dp;
+    public int minPathSum(int[][] grid) {
+        int m = grid.length,n = grid[0].length;
+        dp = new int[m][n];
+        for(int [] A: dp) Arrays.fill(A,-1);
+        return findMinPath(grid,0,0,m,n);
+    }
+
+    private int findMinPath(int[][] grid, int r, int c,int m,int n) {
+        if(r >= m || c >= n) return Integer.MAX_VALUE;
+        if(r == m-1 && c == n-1) return grid[r][c];
+        if(dp[r][c] != -1) return dp[r][c];
+        return dp[r][c] = Math.min(findMinPath(grid,r+1,c,m,n),findMinPath(grid,r,c+1,m,n))+grid[r][c];
+    }
+
+
+
+
+}
+
+
+
+
